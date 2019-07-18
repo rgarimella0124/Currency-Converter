@@ -1,5 +1,5 @@
 import { StatusBar } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator ,createAppContainer } from 'react-navigation';
 
 import Home from '../screens/Home';
 import CurrencyList from '../screens/CurrencyList';
@@ -33,6 +33,8 @@ const HomeStack = createStackNavigator(
   },
 );
 
+const HomeStackontainer = createAppContainer(HomeStack);
+
 const CurrencyListStack = createStackNavigator({
   CurrencyList: {
     screen: CurrencyList,
@@ -42,13 +44,15 @@ const CurrencyListStack = createStackNavigator({
   },
 });
 
-export default createStackNavigator(
+const CurrencyListStackContainer = createAppContainer(CurrencyListStack);
+
+const MainStackNavigator= createStackNavigator(
   {
     Home: {
-      screen: HomeStack,
+      screen: HomeStackontainer,
     },
     CurrencyList: {
-      screen: CurrencyListStack,
+      screen: CurrencyListStackContainer,
     },
   },
   {
@@ -57,3 +61,7 @@ export default createStackNavigator(
     cardStyle: { paddingTop: StatusBar.currentHeight },
   },
 );
+
+const MainStackNavigatorContainer = createAppContainer(MainStackNavigator);
+
+export default  MainStackNavigatorContainer
